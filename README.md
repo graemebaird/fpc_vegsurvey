@@ -12,7 +12,7 @@ Three excel files from FPC serve as the source, stored in `datafiles/raw/`:
 
 These are extracted and compiled into two R list objects, stored in `datafiles/` as `processed_data_list_pretreatment` and `processed_data_list_posttreatment`, with the nested list format:
 
-`
+```
 -> SITE_NAME [[#]]
 
 --> POINT-INTERCEPT [1]
@@ -20,7 +20,7 @@ These are extracted and compiled into two R list objects, stored in `datafiles/`
 --> ZIG-ZAG [2]
 
 --> COARSE-WOOD [3]
-`
+```
 
 ## Visualization and analysis
 Implemented via Shiny, documentation pending
