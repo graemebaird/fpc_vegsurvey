@@ -1,51 +1,32 @@
+library(png)
+library(grid)
+
 shinyServer(function(input, output, session) {
   
-  # Reactive expression for the data subsetted to what the user selected
-  filteredData <- reactive({
-    quakes[quakes$mag >= input$range[1] & quakes$mag <= input$range[2],]
+  # Generate an image with black lines every 10 pixels
+  output$image1 <- renderImage({
+    list(src = "img/Balch_1.png",
+         height=500,
+         alt = "This is alternate text")
+  },deleteFile = FALSE)
+  
+  output$click_info <- renderPrint({
+    cat("input$image_click:\n")
+    str(input$image_click)
+  })
+  output$hover_info <- renderPrint({
+    cat("input$image_hover:\n")
+    str(input$image_hover)
+  })
+  output$dblclick_info <- renderPrint({
+    cat("input$image_dblclick:\n")
+    str(input$image_dblclick)
+  })
+  output$brush_info <- renderPrint({
+    cat("input$image_brush:\n")
+    str(input$image_brush)
   })
   
-  # This reactive expression represents the palette function,
-  # which changes as the user makes selections in UI.
-  colorpal <- reactive({
-    colorNumeric(input$colors, quakes$mag)
-  })
-  
-  output$map <- renderLeaflet({
-    # Use leaflet() here, and only include aspects of the map that
-    # won't need to change dynamically (at least, not unless the
-    # entire map is being torn down and recreated).
-    leaflet(quakes) %>% addTiles() %>%
-      fitBounds(~-122.819, ~45.5, ~-122.8, ~45.61)
-  })
-  
-  # Incremental changes to the map (in this case, replacing the
-  # circles when a new color is chosen) should be performed in
-  # an observer. Each independent set of things that can change
-  # should be managed in its own observer.
-  observe({
-    pal <- colorpal()
-    
-    leafletProxy("map", data = filteredData()) %>%
-      clearShapes() %>%
-      addCircles(radius = ~10^mag/10, weight = 1, color = "#777777",
-                 fillColor = ~pal(mag), fillOpacity = 0.7, popup = ~paste(mag)
-      )
-  })
-  
-  # Use a separate observer to recreate the legend as needed.
-  observe({
-    proxy <- leafletProxy("map", data = quakes)
-    
-    # Remove any existing legend, and only if the legend is
-    # enabled, create a new one.
-    proxy %>% clearControls()
-    if (input$legend) {
-      pal <- colorpal()
-      proxy %>% addLegend(position = "bottomright",
-                          pal = pal, values = ~mag
-      )
-    }
-  })
 }
+
 )

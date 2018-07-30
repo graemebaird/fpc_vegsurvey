@@ -2,16 +2,51 @@ library(shiny)
 library(leaflet)
 library(RColorBrewer)
 
-bootstrapPage(
-  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-  leafletOutput("map", width = "100%", height = "100%"),
-  absolutePanel(top = 10, right = 10,
-                sliderInput("range", "Magnitudes", min(quakes$mag), max(quakes$mag),
-                            value = range(quakes$mag), step = 0.1
-                ),
-                selectInput("colors", "Color Scheme",
-                            rownames(subset(brewer.pal.info, category %in% c("seq", "div")))
-                ),
-                checkboxInput("legend", "Show legend", TRUE)
+
+fluidPage(
+  # Some custom CSS for a smaller font for preformatted text
+  tags$head(
+    tags$style(HTML("
+                    pre, table.table {
+                    font-size: smaller;
+                    }
+                    "))
+    ),
+  
+  fluidRow(
+    column(width = 2),
+    column(width = 6,
+           br(),
+           # In a imageOutput, passing values for click, dblclick, hover, or brush
+           # will enable those interactions.
+           imageOutput("image1", height = 500,
+                       # Equivalent to: click = clickOpts(id = "image_click")
+                       click = "image_click",
+                       dblclick = dblclickOpts(
+                         id = "image_dblclick"
+                       ),
+                       hover = hoverOpts(
+                         id = "image_hover"
+                       ),
+                       brush = brushOpts(
+                         id = "image_brush"
+                       )
+           ),
+           br()
+    )
+  ),
+  fluidRow(
+    column(width = 3,
+           verbatimTextOutput("click_info")
+    ),
+    column(width = 3,
+           verbatimTextOutput("dblclick_info")
+    ),
+    column(width = 3,
+           verbatimTextOutput("hover_info")
+    ),
+    column(width = 3,
+           verbatimTextOutput("brush_info")
+    )
   )
-)
+    )
