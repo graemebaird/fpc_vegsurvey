@@ -1,6 +1,10 @@
 # Forest Park Conservancy - Vegetation Survey
 ## Dataset
-Data is taken from vegetation monitoring surveys conducted by the Forest Park Conservancy (FPC) to assess the impact of invasive plant removal on a grid of observation sites in the Balch Creek section of Forest Park, using point-intercept, zig-zag, and coarse wood methods for data collection (only point-intercept for pre-treatment). Three excel files from FPC serve as the source, stored in `datafiles/raw/`:
+Data is taken from vegetation monitoring surveys conducted by the Forest Park Conservancy (FPC) to assess the impact of invasive plant removal on a grid of observation sites in the Balch Creek section of Forest Park, using point-intercept, zig-zag, and coarse wood methods for data collection (only point-intercept for pre-treatment). A subset of the points on the site map below were sampled. 
+
+![sitemap](/codefiles/img/Balch_1.png "Balch Creek Sampling sites")
+
+Three excel files from FPC serve as the source, stored in `datafiles/raw/`:
 
 `BALCH I SUMMARY.xlsx`: post-treatment observations (2017 monitoring)
 
@@ -10,8 +14,11 @@ These are extracted and compiled into two R list objects, stored in `datafiles/`
 
 `
 -> SITE_NAME [[#]]
+
 --> POINT-INTERCEPT [1]
+
 --> ZIG-ZAG [2]
+
 --> COARSE-WOOD [3]
 `
 
