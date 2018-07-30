@@ -14,11 +14,8 @@ These are extracted and compiled into two R list objects, stored in `datafiles/`
 
 ```
 -> SITE_NAME [[#]]
-
 --> POINT-INTERCEPT [1]
-
 --> ZIG-ZAG [2]
-
 --> COARSE-WOOD [3]
 ```
 
